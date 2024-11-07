@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="TextDiffuser-22: Unleashing the Power of Language Models for Text Rendering">
+  <meta name="keywords" content="Diffusion Models, Text Rendering, Optical Character Recognition">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <div style="text-align: center; margin-top: 20px;">
+    <img src="./assets/logo.gif" alt="VideoTuna Logo" style="max-width: 450px;">
+  </div>
+
+  <title>VideoTuna: Let's Finetune Video Generation Models!</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- <link rel="icon" type="image/png" href="assets/logo.jpg"> -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">VideoTuna: Let's Finetune Text-to-Video Models!</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span style="font-size: 16px; color: #000000;">VideoTuna is a pioneering codebase for video generation applications. It offers comprehensive pipelines covering pre-training, continuous training, post-training alignment, and fine-tuning.
+
+              </span><sup></sup>
+              
+            <span class="author-block">
+          </div>
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>HKUST,</span>
+			      <span class="author-block"><sup>2</sup>Sun Yat-sen University,</span>
+            <span class="author-block"><sup>3</sup>Microsoft Research</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2311.16465"
+                   class="external-link button is-normal is-rounded is-dark">
+                 
+                  <span>Paper</span>
+                </a> -->
+              <!-- </span> -->
+<!-- 
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-code-branch"></i>
+                  </span>
+                  <span>v0.1.0</span>
+                </a>
+              </span> -->
+
+
+              <span class="link-block">
+                <a href="https://github.com/VideoVerses/VideoTuna/tree/main"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (v0.1.0)</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://discord.gg/AammaaR2"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-discord"></i>
+                  </span>
+                  <span>Discord</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="assets/wechat.png"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-weixin"></i>
+                  </span>
+                  <span>WeChat</span>
+                </a>
+              </span>
+
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/spaces/JingyeChen22/TextDiffuser-2"
+                    class="external-link button is-normal is-rounded is-dark">
+                  
+                  <span>Demo</span>
+                  </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+ <style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; }
+
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+}
+
+.dots {
+  text-align: center;
+  padding: 6px 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 6px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active-dot {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+</style>
+</head>
+<body>
+
+
+<script>
+  let slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+    let i;
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active-dot", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active-dot";
+    // setTimeout(showSlides, 6000); // Change image every 4 seconds
+  }
+  
+  function currentSlide(n) {
+    slideIndex = n - 1;
+    showSlides();
+    // clearTimeout(autoSlide);
+    // autoSlide = setTimeout(showSlides, 6000);
+  }
+  
+  // let autoSlide = setTimeout(showSlides, 6000);
+  </script>
+  
+
+
+</style>
+
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+
+    <!-- Highlight. -->
+    <div class="columns is-centered has-text-centered" >
+      <div class="column is-full-width">
+        <br />
+        <h2 class="title is-3">✨Highlights: What is VideoTuna For?</h2>
+        <div class="content has-text-justified" style="font-size: 1.2rem;">
+          <div class="columns is-multiline is-centered" style="margin-top: 2rem;">
+            <!-- First Row -->
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>All in one framework</b></p>
+                <p class="is-size-6">Inference and fine-tune state-of-the-art video generation models</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Pre-training</b></p>
+                <p class="is-size-6">Build your own foundational text-to-video model</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Continuous training</b></p>
+                <p class="is-size-6">Keep improving your model with new data</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Domain-specific</b></p>
+                <p class="is-size-6">Adapt models to your specific scenario</p>
+              </div>
+            </div>
+            
+            <!-- Second Row -->
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Concept-specific</b></p>
+                <p class="is-size-6">Teach your models with unique concepts</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Language understanding</b></p>
+                <p class="is-size-6">Improve model's comprehension through training</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Post-processing</b></p>
+                <p class="is-size-6">Enhance videos with enhancement model</p>
+              </div>
+            </div>
+            <div class="column is-3">
+              <div class="box has-text-centered" style="height: 100%; padding: 1.5rem;">
+                <p><b>🌟</b></p>
+                <p><b>Human alignment</b></p>
+                <p class="is-size-6">Post-training with RLHF for better results</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<section class="section" style="background-color: #ffffff;">
+  <div class="container is-max-desktop"></div>
+
+    <!-- Highlight. -->
+    <div class="columns is-centered has-text-centered" >
+      <div class="column is-full-width">
+        
+        <h2 class="title is-3" >🌆Gallery</h2>
+
+        <div class="columns is-centered" style="margin-top: 2rem;">
+          <!-- VAE Button -->
+          <div class="column is-3">
+            <div class="box has-text-centered gallery-button" style="padding: 1.5rem; cursor: pointer;" data-target="vae-content">
+              <h3 class="title is-4 mb-0"><strong>All-in-one Model Inference<br>and Comparison</strong></h3>
+            </div>
+          </div>
+          
+          <!-- Video Comparison Button -->
+          <div class="column is-3">
+            <div class="box has-text-centered gallery-button" style="padding: 1.5rem; cursor: pointer;" data-target="video-comparison-content">
+              <h3 class="title is-4 mb-0"><strong>3D Video VAE<br>for Video Compression</strong></h3>
+            </div>
+          </div>
+
+          <!-- Video Storytelling Button -->
+          <div class="column is-3">
+            <div class="box has-text-centered gallery-button" style="padding: 1.5rem; cursor: pointer;" data-target="storytelling-content">
+              <h3 class="title is-4 mb-0"><strong>Domain Finetuning<br>for Facial Video Generation</strong></h3>
+            </div>
+          </div>
+
+          <!-- Video Face Domain Button -->
+          <div class="column is-3">
+            <div class="box has-text-centered gallery-button" style="padding: 1.5rem; cursor: pointer;" data-target="face-content">
+              <h3 class="title is-4 mb-0"><strong>Concept Finetuning<br>for Storytelling</strong></h3>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Content Sections -->
+        <div id="vae-content" class="content-section">
+          <!-- <h3 class="title is-4"><strong>VAE</strong>: The 3D video VAE from VideoTuna can accurately compress and reconstruct the input videos with fine details.        </h3> -->
+
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem; background-color: #f5f5f5;">
+            <!-- First Row -->
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case1/gtanimal2.gif" alt="Demo 1">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case1/fkanimal2.gif" alt="Demo 2">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case2/gtcloseshot1.gif" alt="Demo 3">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case2/fkcloseshot1.gif" alt="Demo 4">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          
+            <!-- Second Row -->
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case3/gtface.gif" alt="Demo 5">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case3/fkface.gif" alt="Demo 6">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case4/gtmotion4.gif" alt="Demo 7">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case4/fkmotion4.gif" alt="Demo 8">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          
+            <!-- Third Row -->
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case5/gtview7.gif" alt="Demo 9">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case5/fkview7.gif" alt="Demo 10">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case6/gtview9.gif" alt="Demo 11">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Ground Truth</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-3">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/vae/case6/fkview9.gif" alt="Demo 12">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>VAE Reconstruction</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="video-comparison-content" class="content-section" style="display: none;">
+          <!-- Video comparison content will go here -->
+
+          <!-- video comparison -->
+
+          <!-- <h3 class="title is-4" style="margin-top: 3rem;"><strong>Video Comparison: Convenient tool for evaluating both text-to-video and image-to-video models in one script.</strong></h3> -->
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem;">
+            <!-- Single Column, Six Rows -->
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/1.gif" alt="Comparison 1">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>A school of tuna swiftly swimming through the open ocean, their silver scales glinting under the sunlight.                  </strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/2.gif" alt="Comparison 2">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Sunlight piercing through a dense canopy in a tropical rainforest, illuminating a hidden path.                  </strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/3.gif" alt="Comparison 3">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>A butterfly landing delicately on a wildflower in a vibrant meadow.                  </strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/4.gif" alt="Comparison 4">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Waves crashing against a rocky shore under a stormy sky, spray misting the air.                  </strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/5.gif" alt="Comparison 5">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>Fireworks exploding over a historic river, reflections twinkling in the water.
+                    </strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column is-8">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/comparison/6.gif" alt="Comparison 6">
+                  <figcaption class="has-text-centered mt-2">
+                    <strong>A mountain biker racing down a trail, dust flying behind.</strong>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storytelling Content -->
+        <div id="storytelling-content" class="content-section" style="display: none;">
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem;">
+            <!-- 4x4 Grid -->
+            <!-- Row 1 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/0_9.gif" alt="Story 1">
+                  <figcaption class="has-text-centered mt-2">
+                    The picture shows a cozy room with a little girl telling her travel story to her teddybear beside the bed.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <!-- Repeat for all 16 items -->
+            <!-- Here's showing first 4 as example, you'll need to add the remaining 12 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/1_4.gif" alt="Story 2">
+                  <figcaption class="has-text-centered mt-2">
+                    As night falls, teddybear sits by the window, his eyes sparkling with longing for the distant place.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/2_5.gif" alt="Story 3">
+                  <figcaption class="has-text-centered mt-2">
+                    Teddybear was in a corner of the room, making a small backpack out of old cloth strips, with a map, a compass and dry food next to it.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/3_6.gif" alt="Story 4">
+                  <figcaption class="has-text-centered mt-2">
+                    The first rays of sunlight in the morning came through the window, and teddybear quietly opened the door and embarked on his adventure.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/4_4.gif" alt="Story 5">
+                  <figcaption class="has-text-centered mt-2">
+                    In the forest, the sun shines through the treetops, and teddybear moves among various animals and communicates with them.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <!-- Continue with the remaining 12 items following the same pattern -->
+          </div>
+
+
+
+
+
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem;">
+            <!-- 4x4 Grid -->
+            <!-- Row 1 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/5_5.gif" alt="Story 1">
+                  <figcaption class="has-text-centered mt-2">
+                    Teddybear leaves his mark on the edge of a clear lake, surrounded by exotic flowers, and the picture is full of mystery and exploration.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <!-- Repeat for all 16 items -->
+            <!-- Here's showing first 4 as example, you'll need to add the remaining 12 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/6_2.gif" alt="Story 2">
+                  <figcaption class="has-text-centered mt-2">
+                    Teddybear climbs the rugged mountain road, the weather is changeable, but he is determined.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/7_4.gif" alt="Story 3">
+                  <figcaption class="has-text-centered mt-2">
+                    The picture switches to the top of the mountain, where teddybear stands in the glow of the sunrise, with a magnificent mountain view in the background.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/8_4.gif" alt="Story 4">
+                  <figcaption class="has-text-centered mt-2">
+                    On the way home, teddybear helps a wounded bird, the picture is warm and touching.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/bear/10_5.gif" alt="Story 5">
+                  <figcaption class="has-text-centered mt-2">
+                    Teddybear sits by the little girl's bed and tells her his adventure story, and the little girl is fascinated.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <!-- Continue with the remaining 12 items following the same pattern -->
+          </div>
+
+          <!-- 添加分隔线 -->
+          <div class="column is-full">
+            <hr style="border: none; border-top: 2px dashed #dbdbdb; margin: 2rem auto; max-width: 90%;">
+          </div>
+
+
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem;">
+            <!-- 4x4 Grid -->
+            <!-- Row 1 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/0_2.gif" alt="Story 1">
+                  <figcaption class="has-text-centered mt-2">
+                    The scene shows a peaceful village, with moonlight shining on the roofs and streets, creating a peaceful atmosphere.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <!-- Repeat for all 16 items -->
+            <!-- Here's showing first 4 as example, you'll need to add the remaining 12 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/1_3.gif" alt="Story 2">
+                  <figcaption class="has-text-centered mt-2">
+                    cat sits by the window, her eyes twinkling in the night, reflecting her special connection with the moon and stars.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/2_4.gif" alt="Story 3">
+                  <figcaption class="has-text-centered mt-2">
+                    Villagers gather in the center of the village for the annual Moon Festival celebration, with lanterns and colored lights adorning the night sky.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/3_7.gif" alt="Story 4">
+                  <figcaption class="has-text-centered mt-2">
+                    cat feels the call of the moon, and her beard trembles with the excitement in her heart.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/4_3.gif" alt="Story 5">
+                  <figcaption class="has-text-centered mt-2">
+                    cat quietly leaves her home in the night and embarks on a path illuminated by the silver moonlight.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <!-- Continue with the remaining 12 items following the same pattern -->
+          </div>
+
+
+          <div class="columns is-multiline is-centered" style="margin: 2rem 1rem;">
+            <!-- 4x4 Grid -->
+            <!-- Row 1 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/8_8.gif" alt="Story 1">
+                  <figcaption class="has-text-centered mt-2">
+                    A group of forest elves dance around glowing mushrooms, their costumes and movements full of magic and vitality.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <!-- Repeat for all 16 items -->
+            <!-- Here's showing first 4 as example, you'll need to add the remaining 12 -->
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/9_2.gif" alt="Story 2">
+                  <figcaption class="has-text-centered mt-2">
+                    cat joins the celebration and dances with the elves, the picture is full of joy and freedom.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/11_0.gif" alt="Story 3">
+                  <figcaption class="has-text-centered mt-2">
+                    A wise old owl reveals the secret power of the moon to cat and the light of the moon in the picture becomes brighter.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/12_1.gif" alt="Story 4">
+                  <figcaption class="has-text-centered mt-2">
+                    cat closes her eyes in the moonlight, puts her hands together, and makes a wish, surrounded by the light of stars and the moon.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="column" style="width: 20%; padding: 0.75rem;">
+              <div class="box">
+                <figure class="image">
+                  <img src="./assets/storytelling/cat/15_9.gif" alt="Story 5">
+                  <figcaption class="has-text-centered mt-2">
+                    cat feels the surge of power, and her eyes become more determined.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            
+            <!-- Continue with the remaining 12 items following the same pattern -->
+          </div>
+
+
+        </div>
+
+        <!-- Face Content -->
+        <div id="face-content" class="content-section" style="display: none;">
+          <div style="width: 60%; margin: 0 auto;">
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0.png" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Face1</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0.png" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Face2</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0.png" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Face3</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_anger.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Anger</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_anger.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Anger</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_anger.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Anger</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_disgust.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Disgust</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_disgust.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Disgust</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_disgust.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Disgust</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>              
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_fear.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Fear</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_fear.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Fear</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_fear.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Fear</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>              
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_happy.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Happy</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_happy.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Happy</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_happy.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Happy</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>              
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_sad.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Sad</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_sad.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Sad</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_sad.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Sad</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>              
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+
+            <div class="columns is-multiline is-centered" style="margin: 2rem auto;">
+              <!-- Row 1 -->
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/1/-ZxtmDbqDRc_0_sample0_surprise.gif" alt="Face 1">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Surprise</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/2/YJJbE-w2qzA_0_sample0_surprise.gif" alt="Face 2">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Surprise</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              
+              <div class="column" style="width: 15%; padding: 0.3rem;">
+                <div class="box" style="max-width: 400px; margin: 0 auto;">
+                  <figure class="image">
+                    <img src="./assets/head/3/zcCWO3QOguA_0_sample0_surprise.gif" alt="Face 3">
+                    <figcaption class="has-text-centered mt-2">
+                      <strong>Surprise</strong>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>              
+              <!-- 重复相同的结构直到完成7行 -->
+            </div>
+
+
+
+          </div>
+        </div>
+
+                
+
+
+      </div>
+    </div>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get all gallery buttons
+        const buttons = document.querySelectorAll('.gallery-button');
+        
+        // Add click event to each button
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            buttons.forEach(b => b.style.backgroundColor = 'white');
+            
+            // Highlight clicked button
+            button.style.backgroundColor = '#f0f0f0';
+            
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(content => {
+              content.style.display = 'none';
+            });
+            
+            // Show selected content
+            const targetId = button.dataset.target;
+            document.getElementById(targetId).style.display = 'block';
+          });
+        });
+        
+        // Activate first button by default
+        buttons[0].click();
+      });
+    </script>
+
+
+</section>
+
+
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+
+    <!-- Highlight. -->
+    <div class="columns is-centered has-text-centered" >
+      <div class="column is-full-width">
+        
+        <h2 class="title is-3">📜License and Contact</h2>
+        <div class="content has-text-justified" style="font-size: 1.2rem;">
+          Please follow <strong>CC-BY-NC-ND</strong>. If you want a license authorization, please contact 
+    <a href="mailto:yhebm@connect.ust.hk">yhebm@connect.ust.hk</a> and 
+    <a href="mailto:yxingag@connect.ust.hk">yxingag@connect.ust.hk</a>.
+        </div>
+      </div>
+    </div>
+</section>
+
+
+</body>
+</html>
